@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>변기 물 내리기</title>
+    <style>
+        /* 전체 화면 가운데 정렬 및 배경색 */
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #e9ecef;
+            font-family: 'Malgun Gothic', sans-serif;
+        }
+
+        /* 왼쪽(변기)과 오른쪽(버튼)을 나누는 컨테이너 */
+        .container {
+            display: flex;
+            align-items: center;
+            gap: 100px; /* 변기와 버튼 사이 간격 */
+        }
+
+        /* 왼쪽 공간 (변기 + 이미지) */
+        .left-side {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            height: 250px;
+        }
+
+        /* 내려갈 이미지 설정 */
+        .image-box {
+            position: absolute;
+            top: 20px; /* 변기 위쪽 위치 */
+            z-index: 1; /* 변기 뒤쪽(안쪽)으로 들어가 보이게 설정 */
+            transition: all 1.5s ease-in-out; /* 애니메이션 속도 */
+        }
+
+        /* 이미지 크기 제한 */
+        .image-box img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+        /* CSS로 간단히 만든 변기 블럭 */
+        .toilet {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            z-index: 2; /* 이미지보다 앞쪽에 오도록 설정 */
+        }
+        
+        .tank {
+            width: 90px;
+            height: 70px;
+            background-color: #fff;
+            border: 3px solid #ccc;
+            border-radius: 10px;
+        }
+
+        .bowl {
+            width: 140px;
+            height: 60px;
+            background-color: #fff;
+            border: 3px solid #ccc;
+            border-radius: 0 0 60px 60px;
+            margin-top: -5px;
+        }
+
+        .base {
+            width: 70px;
+            height: 50px;
+            background-color: #fff;
+            border: 3px solid #ccc;
+            margin-top: -5px;
+        }
+
+        /* 버튼 누를 때 작동할 애니메이션 클래스 */
+        .flush-action {
+            transform: translateY(120px) scale(0.2); /* 아래로 내려가면서 크기 작아짐 */
+            opacity: 0; /* 투명해지면서 사라짐 */
+        }
+
+        /* 오른쪽 버튼 스타일 */
+        .right-side button {
+            padding: 15px 30px;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            background-color: #007bff;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: background-color 0.2s;
+        }
+
+        .right-side button:hover {
+            background-color: #0056b3;
+        }
+        
+        .right-side button:active {
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="left-side">
+            <div class="image-box" id="target-image">
+                <img src="https://via.placeholder.com/80?text=IMG" alt="사라질 이미지">
+            </div>
+
+            <div class="toilet">
+                <div class="tank"></div>
+                <div class="bowl"></div>
+                <div class="base"></div>
+            </div>
+        </div>
+
+        <div class="right-side">
+            <button id="flush-btn">물 내리기 🌊</button>
+        </div>
+    </div>
+
+    <script>
+        // 버튼과 이미지를 선택
+        const flushBtn = document.getElementById('flush-btn');
+        const targetImage = document.getElementById('target-image');
+
+        // 버튼 클릭 시 이벤트 발생
+        flushBtn.addEventListener('click', () => {
+            // 이미지에 애니메이션 클래스 추가 (아래로 내려가며 사라짐)
+            targetImage.classList.add('flush-action');
+
+            // (선택 사항) 3초 뒤에 이미지가 다시 원래 위치로 돌아오게 하려면 아래 주석을 푸세요
+            /*
+            setTimeout(() => {
+                targetImage.classList.remove('flush-action');
+            }, 3000);
+            */
+        });
+    </script>
+
+</body>
+</html>
